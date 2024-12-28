@@ -185,10 +185,11 @@
     })
 
     up.addEventListener('mousedown', (event) => {
-        interval = setInterval(() => {
-            controller.state = 3
-            writeOnCharacteristic(controller)
-        }, 100)
+        // interval = setInterval(() => {
+        //     controller.state = 3
+        //     writeOnCharacteristic(controller)
+        // }, 100)
+        writeOnCharacteristic(controller)
     })
     up.addEventListener('mouseup', (event) => {
         clearInterval(interval)
