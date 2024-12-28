@@ -117,7 +117,8 @@
             bleServiceFound.getCharacteristic(ledCharacteristic)
             .then(characteristic => {
                 console.log("Found the LED characteristic: ", characteristic.uuid);
-                const data = new Uint8Array([value]);
+                const str = JSON.stringify(value); 
+                const data = new TextEncoder().encode(str)
                 return characteristic.writeValue(data);
             })
             .then(() => {
@@ -185,27 +186,25 @@
     })
 
     up.addEventListener('mousedown', (event) => {
-        // interval = setInterval(() => {
-        //     controller.state = 3
-        //     writeOnCharacteristic(controller)
-        // }, 100)
+        controller.state = 3
         writeOnCharacteristic(controller)
     })
     up.addEventListener('mouseup', (event) => {
-        clearInterval(interval)
+        controller.state = 0
+        writeOnCharacteristic(controller)
     })
 
     down.addEventListener('mousedown', (event) => {
-        interval = setInterval(() => {
-            controller.state = 4
-            writeOnCharacteristic(controller)
-        }, 100)
+        controller.state = 4
+        writeOnCharacteristic(controller)
     })
     down.addEventListener('mouseup', (event) => {
-        clearInterval(interval)
+        controller.state = 0
+        writeOnCharacteristic(controller)
     })
     
     max_post_timer.addEventListener('click', () => {
+        controller.state = 0
         controller.max_pos_timer = !controller.max_pos_timer
         writeOnCharacteristic(controller)
     })
